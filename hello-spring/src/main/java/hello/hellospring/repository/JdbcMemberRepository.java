@@ -24,11 +24,13 @@ public class JdbcMemberRepository implements MemberRepository {
             pstmt = conn.prepareStatement(sql,
                     Statement.RETURN_GENERATED_KEYS);
             pstmt.setString(1, member.getName());
+            pstmt.setInt(2, member.getGrade()); // grade 매개변수 설정
+            pstmt.setString(3, member.getPwd());
+            pstmt.setString(4, member.getId()); // id 매개변수 설정
             pstmt.executeUpdate();
             rs = pstmt.getGeneratedKeys();
             if (rs.next()) {
                 member.setId(rs.getString(4));
-                member.setGrade(rs.getInt(2));
             } else {
                 throw new SQLException("id 조회 실패");
             }

@@ -5,17 +5,9 @@ public class Member {
 
     private String pwd;
 
-    private int grade;
+    private String pwdConfirm;
 
     private String name;
-
-    public int getGrade() {
-        return grade;
-    }
-
-    public void  setGrade(int grade) {
-        this.grade = grade;
-    }
 
     public String getPwd() {
         return pwd;
@@ -25,6 +17,13 @@ public class Member {
         this.pwd = pwd;
     }
 
+    public String getPwdConfirm() {
+        return pwdConfirm;
+    }
+
+    public void setPwdConfirm(String pwdConfirm) {
+        this.pwdConfirm = pwdConfirm;
+    }
     public String getId() {
         return id;
     }

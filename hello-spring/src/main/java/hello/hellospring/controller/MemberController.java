@@ -29,9 +29,8 @@ public class MemberController{
         member.setName(form.getName());
         member.setId(form.getId());
         member.setPwd(form.getPwd());
-        member.setGrade(form.getGrade());
+        member.setPwdConfirm(form.getPwdConfirm());
         memberService.join(member);
-        System.out.println(form.getGrade());
         return "redirect:/";
     }
 

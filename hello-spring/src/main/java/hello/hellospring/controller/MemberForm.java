@@ -12,6 +12,7 @@ public class MemberForm {
     }
 
     private String id;
+
     public String getName(){
         return name;
     }
@@ -30,14 +31,15 @@ public class MemberForm {
         this.pwd = pwd;
     }
 
-    private int grade;
+    private String pwdConfirm;
 
-    public int getGrade() {
-        return grade;
+    public String getPwdConfirm() {
+        return pwdConfirm;
     }
 
-    public void setGrade(int grade) {
-        this.grade = grade;
+    public void setPwdConfirm(String pwdConfirm) {
+        this.pwdConfirm = pwdConfirm;
     }
+
 }
 

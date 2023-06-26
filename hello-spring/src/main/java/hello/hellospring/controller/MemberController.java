@@ -24,16 +24,21 @@ public class MemberController{
     }
 
     @PostMapping("/members/new")
-    public String create(MemberForm form){
+    public String create(MemberForm form) {
         Member member = new Member();
         member.setName(form.getName());
         member.setId(form.getId());
         member.setPwd(form.getPwd());
         member.setPwdConfirm(form.getPwdConfirm());
-        memberService.join(member);
-        return "redirect:/";
+        if (!member.getPwd().equals(member.getPwdConfirm())) {
+            // 비밀번호와 비밀번호 확인이 일치하지 않는 경우 처리
+            // 예를 들어, 비밀번호 오류 메시지를 보여주고 회원가입 폼으로 다시 이동할 수 있습니다.
+            return "redirect:/members/new"; //
+        } else {
+            memberService.join(member);
+            return "redirect:/";
+        }
     }
-
     @GetMapping("/members")
     public String list(Model model){
         List<Member> members = memberService.findMembers();

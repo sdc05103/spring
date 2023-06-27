@@ -12,6 +12,7 @@ import java.util.List;
 
 @Controller
 public class MemberController{
+    //hi
     private final MemberService memberService;
     @Autowired  //스프링 컨테이너에서 가져옴, 연결에 사용
     public MemberController(MemberService memberService) {

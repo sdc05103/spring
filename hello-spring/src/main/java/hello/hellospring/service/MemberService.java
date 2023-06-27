@@ -21,7 +21,7 @@ public class MemberService {
      * 회원 가입
      */
     public String join(Member member) {
-
+        System.out.println("here");
         validateDuplicateMember(member);    //중복 회원 검증
         memberRepository.save(member);
         return member.getId();

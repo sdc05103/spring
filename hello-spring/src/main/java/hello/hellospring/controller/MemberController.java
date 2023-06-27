@@ -30,14 +30,16 @@ public class MemberController{
         member.setId(form.getId());
         member.setPwd(form.getPwd());
         member.setPwdConfirm(form.getPwdConfirm());
-        if (!member.getPwd().equals(member.getPwdConfirm())) {
-            // 비밀번호와 비밀번호 확인이 일치하지 않는 경우 처리
-            // 예를 들어, 비밀번호 오류 메시지를 보여주고 회원가입 폼으로 다시 이동할 수 있습니다.
-            return "redirect:/join"; //
-        } else {
-            memberService.join(member);
-            return "redirect:/home";
-        }
+        memberService.join(member);
+//        if (!member.getPwd().equals(member.getPwdConfirm())) {
+//            // 비밀번호와 비밀번호 확인이 일치하지 않는 경우 처리
+//            // 예를 들어, 비밀번호 오류 메시지를 보여주고 회원가입 폼으로 다시 이동할 수 있습니다.
+//            return "redirect:/join"; //
+//        } else {
+//            memberService.join(member);
+//            return "redirect:/";
+//        }
+        return "redirect:/";
     }
     @GetMapping("/members")
     public String list(Model model){

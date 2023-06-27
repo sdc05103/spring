@@ -25,7 +25,6 @@ public class MemberController{
 
     @PostMapping("/join")
     public String create(MemberForm form) {
-        System.out.println("1 ");
         Member member = new Member();
         member.setName(form.getName());
         member.setId(form.getId());
@@ -35,13 +34,10 @@ public class MemberController{
         if (!member.getPwd().equals(member.getPwdConfirm())) {
             // 비밀번호와 비밀번호 확인이 일치하지 않는 경우 처리
             // 예를 들어, 비밀번호 오류 메시지를 보여주고 회원가입 폼으로 다시 이동할 수 있습니다.
-
-            System.out.println("2 ");
             return "redirect:/join";
         } else {
             memberService.join(member);
-            System.out.println("3 ");
-            return "redirect:/home";
+            return "redirect:/";
         }
     }
     @GetMapping("/members")

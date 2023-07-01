@@ -6,3 +6,30 @@ create table member
     pwd varchar(255),
     primary key (id)
 );
+
+create table subject
+(
+    sid int,
+    name varchar(255),
+    primary key(sid)
+);
+
+create table class
+(
+    cid int,
+    name varchar(255),
+    credit int,
+    sid int,
+    primary key(cid),
+    foreign key(sid) references subject(sid)
+);
+
+create table class_list
+(
+    semester int,
+    member_id varchar(255),
+    class_id int,
+    credit int,
+    foreign key(class_id) references class(cid),
+    foreign key(member_id) references member(id)
+);

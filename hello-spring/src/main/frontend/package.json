@@ -11,7 +11,11 @@
     "http-proxy-middleware": "^2.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+<<<<<<< HEAD
     "react-scripts": "^1.1.5",
+=======
+    "react-scripts": "5.0.1",
+>>>>>>> 4ba319f14ea5383ae281f1f13567f616661956b3
     "web-vitals": "^2.1.4"
   },
   "scripts": {

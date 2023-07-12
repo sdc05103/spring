@@ -9,18 +9,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
-public class MemberController{
+public class MemberController {
     //hi!!
     private final MemberService memberService;
+
     @Autowired  //스프링 컨테이너에서 가져옴, 연결에 사용
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
     }
 
     @GetMapping("/join")
-    public String createForm(){
+    public String createForm() {
         return "members/createMemberForm";
     }
 
@@ -33,20 +35,38 @@ public class MemberController{
 
         member.setPwdConfirm(form.getPwdConfirm());
 
-        if (!member.getPwd().equals(member.getPwdConfirm())) {
-            // 비밀번호와 비밀번호 확인이 일치하지 않는 경우 처리
-            // 예를 들어, 비밀번호 오류 메시지를 보여주고 회원가입 폼으로 다시 이동할 수 있습니다.
-            return "redirect:/join";
-        } else {
-            memberService.join(member);
+        memberService.join(member);
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/login")
+    public String joinForm() {
+        return "members/login";
+    }
+
+    @PostMapping("/login")
+    public String join(Member member) {
+        String id = member.getId();
+        String pwd = member.getPwd();
+
+        Optional<Member> loginMember = memberService.login(id, pwd);
+
+        if (!(loginMember.isPresent())) {
+            // 로그인 실패 시(존재하는 아이디 없음)
+            System.out.println("아이디가 일치하지 않습니다");
+            return "redirect:/login";
+        }
+        else { //아이디는 일치
+            member = loginMember.get();
+            if(!(pwd.equals(member.getPwd()))){
+                //아이디는 일치하나 비밀번호 불일치
+                System.out.println("비밀번호가 일치하지 않습니다");
+                return "redirect:/login";
+            }
+            //아이디, 비밀번호 모두 일치
             return "redirect:/";
         }
     }
-    @GetMapping("/members")
-    public String list(Model model){
-        List<Member> members = memberService.findMembers();
-        model.addAttribute("members", members);
-        return "members/memberList";
-    }
-
 }
+

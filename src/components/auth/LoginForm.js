@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 //import { changeField, initializeForm, login } from '../main/modules/auth';
+import { login } from './api/auth';
 import AuthForm from './AuthForm';
 import { useNavigate } from 'react-router-dom';
 //import { check } from '../main/modules/user';
@@ -9,6 +10,8 @@ const LoginForm = () => {
     const [error, setError] = useState(null);
     const [userId, setUserId] = useState('');
     const [password, setPassword] = useState('');
+
+    const navigate = useNavigate();
 
     const onChange = e => {
         const { value, name } = e.target;
@@ -35,6 +38,16 @@ const LoginForm = () => {
         }
         console.log({userId, password});
         //post
+        const response = login(userId, password);
+        /*
+        if(response.response.status===409) {
+            setError('로그인 실패!');
+        }
+        else {
+            alert('로그인되었습니다.');
+            navigate('/');
+        }
+        */
     };
 /*
     useEffect(() => {

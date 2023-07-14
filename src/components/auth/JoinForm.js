@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import AuthForm from './AuthForm';
 //import { check } from '../main/modules/user'
 import { useNavigate } from 'react-router-dom';
+import { join } from './api/auth';
 
 
 const JoinForm = () => {
@@ -12,6 +13,8 @@ const JoinForm = () => {
     const [userId, setUserId] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirm, setPasswordConfirm] = useState('');
+
+    const navigate = useNavigate();
 
     const onChange = e => {
         const { value, name } = e.target;
@@ -53,6 +56,17 @@ const JoinForm = () => {
         console.log({userName, userId, password, passwordConfirm});
         setError('');
         //post
+        const response = join(userName, userId, password);
+        console.log(response);
+        
+        if(response===-1) {
+            setError('이미 존재하는 계정명입니다.');
+        }
+        else {
+            alert('회원가입이 완료되었습니다.');
+            navigate('/');
+        }
+        
     };
 
     useEffect(() => {

@@ -5,6 +5,7 @@ import LoginPage from "./components/auth/LoginPage";
 import JoinPage from "./components/auth/JoinPage";
 import CreditsTemplate from "./components/credits/CreditsTemplate";
 
+
 function App() {
   return (
     <Routes>

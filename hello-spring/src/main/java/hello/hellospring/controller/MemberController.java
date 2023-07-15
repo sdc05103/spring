@@ -3,14 +3,17 @@ package hello.hellospring.controller;
 import hello.hellospring.domain.Member;
 import hello.hellospring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
+@RestController
+@CrossOrigin(origins = "http://localhost:3000") //CORS ERROR 해결
 @Controller
 public class MemberController {
     //hi!!
@@ -24,13 +27,13 @@ public class MemberController {
     @GetMapping("/join")
     public String createForm() {
         return "members/createMemberForm";
-    }
+    }   //문제
 
     @PostMapping("/join")
-    public String create(MemberForm form) {
+    public ResponseEntity<String> create(@RequestBody MemberForm form) {
+        //System.out.println(form);
         Member member = new Member();
         member.setName(form.getName());
-
         member.setId(form.getId());
         member.setPwd(form.getPwd());
 
@@ -38,7 +41,7 @@ public class MemberController {
 
         memberService.join(member);
 
-        return "redirect:/";
+        return ResponseEntity.ok("성공");    //문제
     }
 
     @GetMapping("/login")
@@ -47,7 +50,7 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public String join(Member member) {
+    public String join(Member member, HttpSession httpSession) {
         String id = member.getId();
         String pwd = member.getPwd();
 
@@ -66,8 +69,9 @@ public class MemberController {
                 return "redirect:/login";
             }
             //아이디, 비밀번호 모두 일치
+            httpSession.setAttribute("userId", member.getId());
+            httpSession.setMaxInactiveInterval(30*60);  //30분 후 자동 만료
             return "redirect:/";
         }
     }
 }
-

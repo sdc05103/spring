@@ -1,8 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-//import { changeField, initializeForm, join } from '../main/modules/auth';
 import AuthForm from './AuthForm';
-//import { check } from '../main/modules/user'
 import { useNavigate } from 'react-router-dom';
 import { join } from './api/auth';
 
@@ -56,7 +53,7 @@ const JoinForm = () => {
         console.log({userName, userId, password, passwordConfirm});
         setError('');
         //post
-        const response = join(userName, userId, password);
+        const response = join({userName, userId, password});
         console.log(response);
         
         if(response===-1) {

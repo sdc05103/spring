@@ -6,7 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -30,15 +34,12 @@ public class MemberController {
     }   //문제
 
     @PostMapping("/join")
-    public ResponseEntity<String> create(@RequestBody MemberForm form) {
-        //System.out.println(form);
+    public String create(@RequestBody MemberForm form) {
         Member member = new Member();
-        member.setName(form.getName());
-        member.setId(form.getId());
         member.setPwd(form.getPwd());
-
         member.setPwdConfirm(form.getPwdConfirm());
-
+        member.setId(form.getId());
+        member.setName(form.getName());
         memberService.join(member);
 
         return ResponseEntity.ok("성공");    //문제

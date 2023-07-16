@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,14 +28,12 @@ public class MemberController {
     }
 
     @PostMapping("/join")
-    public String create(MemberForm form) {
+    public String create(@RequestBody MemberForm form) {
         Member member = new Member();
-        member.setName(form.getName());
-        member.setId(form.getId());
         member.setPwd(form.getPwd());
-
         member.setPwdConfirm(form.getPwdConfirm());
-
+        member.setId(form.getId());
+        member.setName(form.getName());
         memberService.join(member);
 
         return "redirect:/";

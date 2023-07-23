@@ -17,10 +17,18 @@
     color: #B9B9B9
 }
 
-.goright {
+.submitClass {
     text-align: right;
 }
 
-.addClass:hover {
+.addClass>span:hover {
+    cursor: pointer;
+}
+
+.clearClass>span:hover {
+    cursor: pointer;
+}
+
+.submitClass>span:hover {
     cursor: pointer;
 }

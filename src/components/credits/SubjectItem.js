@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import './styles/subjectitem.css'
 
 const subjectList = ["국어","수학","영어","한국사","사회","과학","체육","예술","기술가정","제2외국어","한문","교양"];
+const classList0 = ["국어","화법과 작문", "독서", "언어와 매체", "문학", "실용국어","심화국어","고전읽기"];
+const classList1 = ["수학","수학Ⅰ","수학Ⅱ","미적분","확률과 통계","기본 수학","실용 수학","기하","경제 수학","수학과제 탐구","인공지능 수학"];
+
 
 const subjectOptions = [
     {value: "국어", label: "국어"},
@@ -142,7 +145,7 @@ const classOptions = [ [{value: "국어", label: "국어"},{value: "화법과 �
 {value: "논술", label: "논술"}
 ]];
 
-const credit = [{value: "1", label: "1"},
+const creditOptions = [{value: "1", label: "1"},
 {value: "2", label: "2"},
 {value: "3", label: "3"},
 {value: "4", label: "4"},
@@ -151,8 +154,20 @@ const credit = [{value: "1", label: "1"},
 
 const SubjectItem = ({ subject, id, onModifySubject, onModifyClass, onModifyCredit }) => {
     let subjectNum = -1;
+    let classNum = -1;
     if(subject.subject) {
         subjectNum = subjectList.indexOf(subject.subject); //class drop down을 위한 영역 index 구하기
+        //for showing
+        switch(subjectNum) {
+            case 0: //국어
+                classNum = classList0.indexOf(subject.class);
+                break;
+            case 1:
+                classNum = classList1.indexOf(subject.class);
+                break;
+            default:
+                break;
+        }
     }
 
     const [subjectSelected, setSubjectSelected] = useState(subject.subject);
@@ -168,19 +183,32 @@ const SubjectItem = ({ subject, id, onModifySubject, onModifyClass, onModifyCred
         onModifyCredit(e, id);
     }
 
+    useEffect(() => {
+        setSubjectSelected(subject.subject);
+    },[]);
+
     return (
         <div className='subjectItemList'>
             <Select options={subjectOptions}
-                    defaultValue={(subjectNum!==-1) ? subjectOptions[subjectNum] : subjectOptions[0]}
                     isSearchable={false}
-                    onChange={onSelectSubject} /> 
+                    onChange={onSelectSubject}
+                    value={subjectOptions.filter(function (option) {
+                        return option.value === subject.subject;
+                    })} /> 
             <Select options={classOptions[subjectList.indexOf(subjectSelected)]}
                     isSearchable={false}
-                    onChange={onSelectClass} />
-            <Select options={credit}
+                    onChange={onSelectClass}
+                    value={classOptions[subjectNum].filter(function (option) {
+                        return option.value === subject.class;
+                    })} />
+            <Select options={creditOptions}
                     isSearchable={false}
-                    onChange={onSelectCredit} />
+                    onChange={onSelectCredit}
+                    value={creditOptions.filter(function (option) {
+                        return option.value === subject.credit;
+                    })} />
         </div>
+        
     );
 };
 

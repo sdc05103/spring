@@ -8,7 +8,7 @@ const MainCategory = ({ subjects, onModifySubject ,onModifyClass, onModifyCredit
     return (
         <div className='maincategory'>
             <CategoryBar />
-            <SubjectList subjects={subjects} onModifySubject={onModifySubject} onModifyClass={onModifyClass} onModifyCredit={onModifyCredit}  />
+            <SubjectList subjects={subjects} onModifySubject={onModifySubject} onModifyClass={onModifyClass} onModifyCredit={onModifyCredit} />
         </div>
     );
 };
